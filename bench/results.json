@@ -1,0 +1,150 @@
+[
+  {
+    "stage": "v0",
+    "description": "naive: sequential + blocking",
+    "n_jobs": 40,
+    "succeeded": 2,
+    "failed": 0,
+    "rate_limited": 0,
+    "crashed": true,
+    "crash_reason": "TransientError: qwen_selfhosted: 503 upstream (job 2, attempt 1)",
+    "wall_real_s": 0.9813581759999579,
+    "wall_sim_s": 24.533954399998947,
+    "time_to_first_result_sim_s": null,
+    "peak_mem_mb": 80.01769733428955,
+    "provider_peak_in_flight": {
+      "gpt_image": 1,
+      "gemini": 1,
+      "qwen_selfhosted": 1
+    },
+    "notes": [
+      "if it had not crashed, v0 would take 588 s (sim)"
+    ]
+  },
+  {
+    "stage": "v1",
+    "description": "async + TaskGroup, unbounded fan-out",
+    "n_jobs": 40,
+    "succeeded": 22,
+    "failed": 18,
+    "rate_limited": 16,
+    "crashed": false,
+    "crash_reason": "",
+    "wall_real_s": 12.365925704999995,
+    "wall_sim_s": 309.1481426249999,
+    "time_to_first_result_sim_s": 309.1480712250018,
+    "peak_mem_mb": 80.09748935699463,
+    "provider_peak_in_flight": {
+      "gpt_image": 8,
+      "gemini": 12,
+      "qwen_selfhosted": 4
+    },
+    "notes": []
+  },
+  {
+    "stage": "v2",
+    "description": "+ Semaphore per provider",
+    "n_jobs": 40,
+    "succeeded": 38,
+    "failed": 2,
+    "rate_limited": 0,
+    "crashed": false,
+    "crash_reason": "",
+    "wall_real_s": 12.365953389999959,
+    "wall_sim_s": 309.14883474999897,
+    "time_to_first_result_sim_s": 309.14876972499883,
+    "peak_mem_mb": 80.08458614349365,
+    "provider_peak_in_flight": {
+      "gpt_image": 8,
+      "gemini": 12,
+      "qwen_selfhosted": 4
+    },
+    "notes": []
+  },
+  {
+    "stage": "v3",
+    "description": "+ bounded Queue (backpressure)",
+    "n_jobs": 40,
+    "succeeded": 38,
+    "failed": 2,
+    "rate_limited": 0,
+    "crashed": false,
+    "crash_reason": "",
+    "wall_real_s": 12.379349950999995,
+    "wall_sim_s": 309.48374877499987,
+    "time_to_first_result_sim_s": 309.483696274998,
+    "peak_mem_mb": 34.045806884765625,
+    "provider_peak_in_flight": {
+      "gpt_image": 5,
+      "gemini": 4,
+      "qwen_selfhosted": 4
+    },
+    "notes": []
+  },
+  {
+    "stage": "v4",
+    "description": "+ timeout + hedging",
+    "n_jobs": 40,
+    "succeeded": 38,
+    "failed": 2,
+    "rate_limited": 0,
+    "crashed": false,
+    "crash_reason": "",
+    "wall_real_s": 1.4750555199999553,
+    "wall_sim_s": 36.87638799999888,
+    "time_to_first_result_sim_s": 36.876311374999204,
+    "peak_mem_mb": 38.089637756347656,
+    "provider_peak_in_flight": {
+      "gpt_image": 5,
+      "gemini": 4,
+      "qwen_selfhosted": 4
+    },
+    "notes": []
+  },
+  {
+    "stage": "v5",
+    "description": "+ typed retry policy",
+    "n_jobs": 40,
+    "succeeded": 40,
+    "failed": 0,
+    "rate_limited": 0,
+    "crashed": false,
+    "crash_reason": "",
+    "wall_real_s": 1.6238725990000376,
+    "wall_sim_s": 40.59681497500094,
+    "time_to_first_result_sim_s": 40.5967296,
+    "peak_mem_mb": 36.09045886993408,
+    "provider_peak_in_flight": {
+      "gpt_image": 4,
+      "gemini": 4,
+      "qwen_selfhosted": 4
+    },
+    "notes": [
+      "job 2: retry 1 after TransientError",
+      "job 11: retry 1 after TransientError"
+    ]
+  },
+  {
+    "stage": "v6",
+    "description": "+ streaming async generator",
+    "n_jobs": 40,
+    "succeeded": 40,
+    "failed": 0,
+    "rate_limited": 0,
+    "crashed": false,
+    "crash_reason": "",
+    "wall_real_s": 1.674211031000027,
+    "wall_sim_s": 41.85527577500068,
+    "time_to_first_result_sim_s": 8.004025350001598,
+    "peak_mem_mb": 34.09389877319336,
+    "provider_peak_in_flight": {
+      "gpt_image": 4,
+      "gemini": 4,
+      "qwen_selfhosted": 4
+    },
+    "notes": [
+      "job 2: retry 1 after TransientError",
+      "job 11: retry 1 after TransientError"
+    ]
+  }
+]
